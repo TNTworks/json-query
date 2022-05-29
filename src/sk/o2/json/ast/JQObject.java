@@ -1,10 +1,10 @@
-package sk.o2.jsonquery.ast;
+package sk.o2.json.ast;
 
-import sk.o2.jsonquery.parser.IJQPrintable;
-import sk.o2.jsonquery.parser.JQParsedEntity;
-import sk.o2.jsonquery.parser.JsonParser;
-import sk.o2.jsonquery.parser.JsonParserContext;
-import sk.o2.jsonquery.lexer.JsonTokenTypeEnum;
+import sk.o2.json.parser.IJQPrintable;
+import sk.o2.json.parser.JQParsedEntity;
+import sk.o2.json.parser.JsonParser;
+import sk.o2.json.parser.JsonParserContext;
+import sk.o2.json.lexer.JsonTokenTypeEnum;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package sk.o2.jsonquery.parser;
+package sk.o2.json.parser;
 
 public interface IJQPrintable {
     String print();

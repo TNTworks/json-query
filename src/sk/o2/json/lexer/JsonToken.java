@@ -1,4 +1,4 @@
-package sk.o2.jsonquery.lexer;
+package sk.o2.json.lexer;
 
 public final class JsonToken {
     private final JsonTokenTypeEnum type;

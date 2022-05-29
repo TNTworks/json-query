@@ -1,4 +1,4 @@
-package sk.o2.jsonquery.parser;
+package sk.o2.json.parser;
 
 public final class JsonParserContext<T extends JQParsedEntity<T>> {
     private final JsonParser parser;

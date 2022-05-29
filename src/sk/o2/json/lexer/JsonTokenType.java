@@ -1,4 +1,4 @@
-package sk.o2.jsonquery.lexer;
+package sk.o2.json.lexer;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
