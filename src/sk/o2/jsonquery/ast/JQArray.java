@@ -1,4 +1,4 @@
-package sk.o2.jsonquery.ast.nodes;
+package sk.o2.jsonquery.ast;
 
 import sk.o2.jsonquery.parser.JQParsedEntity;
 import sk.o2.jsonquery.parser.JsonParser;

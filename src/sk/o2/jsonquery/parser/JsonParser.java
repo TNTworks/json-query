@@ -2,8 +2,8 @@ package sk.o2.jsonquery.parser;
 
 import sk.o2.jsonquery.lexer.JsonToken;
 import sk.o2.jsonquery.lexer.JsonTokenTypeEnum;
-import sk.o2.jsonquery.ast.nodes.JQArray;
-import sk.o2.jsonquery.ast.nodes.JQObject;
+import sk.o2.jsonquery.ast.JQArray;
+import sk.o2.jsonquery.ast.JQObject;
 
 import java.util.ArrayList;
 
