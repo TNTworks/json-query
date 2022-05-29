@@ -4,7 +4,7 @@ import sk.o2.json.parser.IJQPrintable;
 import sk.o2.json.parser.JQParsedEntity;
 import sk.o2.json.parser.JsonParser;
 import sk.o2.json.parser.JsonParserContext;
-import sk.o2.json.lexer.JsonTokenTypeEnum;
+import sk.o2.json.lexer.JsonTokenEnum;
 
 import java.util.ArrayList;
 
@@ -12,21 +12,21 @@ public final class JQObject extends JQParsedEntity<JQObject> {
     private final ArrayList<JQProperty> properties = new ArrayList<>();
     
     public JsonParserContext<JQObject> parse(JsonParser parser) {
-        parser.expect(JsonTokenTypeEnum.LEFT_CURLY);
+        parser.expect(JsonTokenEnum.LEFT_CURLY);
         
-        while (parser.isNext(JsonTokenTypeEnum.STRING)) {
+        while (parser.isNext(JsonTokenEnum.STRING)) {
             JsonParserContext<JQProperty> pc = new JQProperty().parse(parser);
             parser = pc.getParser();
             properties.add(pc.getParsedEntity());
             
-            if (parser.isNext(JsonTokenTypeEnum.COMMA)) {
-                parser.expect(JsonTokenTypeEnum.COMMA);
+            if (parser.isNext(JsonTokenEnum.COMMA)) {
+                parser.expect(JsonTokenEnum.COMMA);
             } else {
                 break;
             }
         }
         
-        parser.expect(JsonTokenTypeEnum.RIGHT_CURLY);
+        parser.expect(JsonTokenEnum.RIGHT_CURLY);
         
         return new JsonParserContext<>(parser, this);
     }

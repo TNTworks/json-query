@@ -3,7 +3,7 @@ package sk.o2.json.ast;
 import sk.o2.json.parser.JQParsedEntity;
 import sk.o2.json.parser.JsonParser;
 import sk.o2.json.parser.JsonParserContext;
-import sk.o2.json.lexer.JsonTokenTypeEnum;
+import sk.o2.json.lexer.JsonTokenEnum;
 
 public final class JQProperty extends JQParsedEntity<JQProperty> {
     private String name;
@@ -13,23 +13,23 @@ public final class JQProperty extends JQParsedEntity<JQProperty> {
     
     @Override
     public JsonParserContext<JQProperty> parse(JsonParser parser) {
-        name = parser.expect(JsonTokenTypeEnum.STRING).getValue();
-        parser.expect(JsonTokenTypeEnum.COLON);
+        name = parser.expect(JsonTokenEnum.STRING).getValue();
+        parser.expect(JsonTokenEnum.COLON);
         
-        if (parser.isNext(JsonTokenTypeEnum.LEFT_SQUARE)) {
+        if (parser.isNext(JsonTokenEnum.LEFT_SQUARE)) {
             JsonParserContext<JQArray> pc = new JQArray().parse(parser);
             parser = pc.getParser();
             array = pc.getParsedEntity();
-        } else if (parser.isNext(JsonTokenTypeEnum.LEFT_CURLY)) {
+        } else if (parser.isNext(JsonTokenEnum.LEFT_CURLY)) {
             JsonParserContext<JQObject> pc = new JQObject().parse(parser);
             parser = pc.getParser();
             object = pc.getParsedEntity();
         } else if (
-            parser.isNext(JsonTokenTypeEnum.STRING) ||
-            parser.isNext(JsonTokenTypeEnum.NUMBER) ||
-            parser.isNext(JsonTokenTypeEnum.TRUE) ||
-            parser.isNext(JsonTokenTypeEnum.FALSE) ||
-            parser.isNext(JsonTokenTypeEnum.NULL)
+            parser.isNext(JsonTokenEnum.STRING) ||
+            parser.isNext(JsonTokenEnum.NUMBER) ||
+            parser.isNext(JsonTokenEnum.TRUE) ||
+            parser.isNext(JsonTokenEnum.FALSE) ||
+            parser.isNext(JsonTokenEnum.NULL)
         ) {
             JsonParserContext<JQLiteral> pc = new JQLiteral().parse(parser);
             parser = pc.getParser();

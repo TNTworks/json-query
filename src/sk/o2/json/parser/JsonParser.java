@@ -1,32 +1,32 @@
 package sk.o2.json.parser;
 
-import sk.o2.json.lexer.JsonToken;
-import sk.o2.json.lexer.JsonTokenTypeEnum;
+import sk.o2.json.lexer.JsonTokenEnum;
+import sk.o2.lexer.LexerToken;
 import sk.o2.json.ast.JQArray;
 import sk.o2.json.ast.JQObject;
 
 import java.util.ArrayList;
 
 public final class JsonParser {
-    private final ArrayList<JsonToken> tokens;
+    private final ArrayList<LexerToken<JsonTokenEnum>> tokens;
     
-    public JsonParser(ArrayList<JsonToken> tokens) {
+    public JsonParser(ArrayList<LexerToken<JsonTokenEnum>> tokens) {
         this.tokens = tokens;
     }
     
-    public JQParsedEntity<?> parse() {
-        if (isNext(JsonTokenTypeEnum.LEFT_CURLY)) {
+    public IJQPrintable parse() {
+        if (isNext(JsonTokenEnum.LEFT_CURLY)) {
             JsonParserContext<JQObject> pc = new JQObject().parse(this);
             
-            if (this.peek().getType() != JsonTokenTypeEnum.EOF) {
+            if (this.peek().getType() != JsonTokenEnum.EOF) {
                 throw new RuntimeException("Unexpected token " + this.peek().getType());
             }
             
             return pc.getParsedEntity();
-        } else if (isNext(JsonTokenTypeEnum.LEFT_SQUARE)) {
+        } else if (isNext(JsonTokenEnum.LEFT_SQUARE)) {
             JsonParserContext<JQArray> pc = new JQArray().parse(this);
     
-            if (this.peek().getType() != JsonTokenTypeEnum.EOF) {
+            if (this.peek().getType() != JsonTokenEnum.EOF) {
                 throw new RuntimeException("Unexpected token " + this.peek().getType());
             }
             
@@ -36,11 +36,11 @@ public final class JsonParser {
         throw new RuntimeException("Expected [array or object] but found " + this.peek().getType());
     }
     
-    public boolean isNext(JsonTokenTypeEnum type) {
+    public boolean isNext(JsonTokenEnum type) {
         return tokens.size() > 0 && peek().getType() == type;
     }
     
-    public JsonToken expect(JsonTokenTypeEnum type) {
+    public LexerToken<JsonTokenEnum> expect(JsonTokenEnum type) {
         if (!isNext(type)) {
             throw new RuntimeException("Expected " + type + " but found " + peek().getType());
         }
@@ -48,11 +48,11 @@ public final class JsonParser {
         return consume();
     }
     
-    public JsonToken peek() {
+    public LexerToken<JsonTokenEnum> peek() {
         return tokens.get(0);
     }
     
-    public JsonToken consume() {
+    public LexerToken<JsonTokenEnum> consume() {
         return tokens.remove(0);
     }
 }

@@ -1,13 +1,13 @@
-package sk.o2.json.lexer;
+package sk.o2.lexer;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class JsonTokenType {
-    private final JsonTokenTypeEnum type;
+public final class LexerTokenDefinition<TTokenType> {
+    private final TTokenType type;
     private final Pattern pattern;
     
-    public JsonTokenType(JsonTokenTypeEnum type, Pattern pattern) {
+    public LexerTokenDefinition(TTokenType type, Pattern pattern) {
         this.type = type;
         this.pattern = pattern;
     }
@@ -16,10 +16,10 @@ public final class JsonTokenType {
         return pattern.matcher(s).find();
     }
     
-    public JsonToken extract(String s) {
+    public LexerToken<TTokenType> extract(String s) {
         Matcher m = pattern.matcher(s);
         //noinspection ResultOfMethodCallIgnored
         m.find();
-        return new JsonToken(type, m.group(0));
+        return new LexerToken<>(type, m.group(0));
     }
 }

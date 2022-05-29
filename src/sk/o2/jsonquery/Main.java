@@ -1,7 +1,7 @@
-package sk.o2.json;
+package sk.o2.jsonquery;
 
-import sk.o2.json.lexer.JsonLexer;
 import sk.o2.json.parser.JsonParser;
+import sk.o2.json.lexer.JsonLexer;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

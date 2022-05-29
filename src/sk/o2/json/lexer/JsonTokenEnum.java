@@ -1,6 +1,6 @@
 package sk.o2.json.lexer;
 
-public enum JsonTokenTypeEnum {
+public enum JsonTokenEnum {
     LEFT_CURLY,
     RIGHT_CURLY,
     LEFT_SQUARE,
