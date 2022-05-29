@@ -8,6 +8,7 @@ import sk.o2.json.lexer.JsonTokenEnum;
 import java.util.ArrayList;
 
 public final class JQArray extends JQParsedEntity<JQArray> {
+    private String arrayName;
     private final ArrayList<JQParsedEntity<?>> elements = new ArrayList<>();
     
     @Override
@@ -24,7 +25,7 @@ public final class JQArray extends JQParsedEntity<JQArray> {
             parser.isNext(JsonTokenEnum.NULL)
         ) {
             if (parser.isNext(JsonTokenEnum.LEFT_SQUARE)) {
-                JsonParserContext<JQArray> pc = new JQArray().parse(parser);
+                JsonParserContext<JQArray> pc = new JQArray().setArrayName(arrayName).parse(parser);
                 parser = pc.getParser();
                 elements.add(pc.getParsedEntity());
             } else if (parser.isNext(JsonTokenEnum.LEFT_CURLY)) {
@@ -58,5 +59,22 @@ public final class JQArray extends JQParsedEntity<JQArray> {
     @Override
     public String print() {
         return "[" + String.join(",", elements.stream().map(JQParsedEntity::print).toArray(String[]::new)) + "]";
+    }
+    
+    @Override
+    public String printXml() {
+        return
+            String.join("", elements.stream()
+                .map(JQParsedEntity::printXml)
+                .map(e -> "<" + arrayName + ">" + e + "</" + arrayName + ">")
+                .toArray(String[]::new));
+    }
+    
+    public JQArray setArrayName(String arrayName) {
+        this.arrayName =
+            (arrayName.startsWith("\"") && arrayName.endsWith("\""))
+                ? arrayName.substring(1, arrayName.length() - 1)
+                : arrayName;
+        return this;
     }
 }

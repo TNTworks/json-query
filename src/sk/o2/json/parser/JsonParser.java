@@ -24,7 +24,7 @@ public final class JsonParser {
             
             return pc.getParsedEntity();
         } else if (isNext(JsonTokenEnum.LEFT_SQUARE)) {
-            JsonParserContext<JQArray> pc = new JQArray().parse(this);
+            JsonParserContext<JQArray> pc = new JQArray().setArrayName("anonymousRoot").parse(this);
     
             if (this.peek().getType() != JsonTokenEnum.EOF) {
                 throw new RuntimeException("Unexpected token " + this.peek().getType());

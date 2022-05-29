@@ -12,8 +12,9 @@ import java.nio.file.Paths;
 public final class Main {
     public static void main(String[] args) throws IOException {
         String data = readResource("runtime/input.json");
-    
+        
         System.out.println(new JsonParser(new JsonLexer(data).lex()).parse().print());
+        System.out.println(new JsonParser(new JsonLexer(data).lex()).parse().printXml());
     }
     
     private static String readResource(String resourcePath) throws IOException {

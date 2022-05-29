@@ -4,8 +4,8 @@ import sk.o2.lexer.AbstractLexer;
 
 public final class JsonLexer extends AbstractLexer<JsonTokenEnum> {
     public JsonLexer(String input) {
-        super(input, JsonTokenEnum.BAD_TOKEN, JsonTokenEnum.WHITESPACE);
-    
+        super(input, JsonTokenEnum.BAD_TOKEN, JsonTokenEnum.EOF, JsonTokenEnum.WHITESPACE);
+        
         registerToken(JsonTokenEnum.LEFT_CURLY, "\\{");
         registerToken(JsonTokenEnum.RIGHT_CURLY, "\\}");
         registerToken(JsonTokenEnum.LEFT_SQUARE, "\\[");

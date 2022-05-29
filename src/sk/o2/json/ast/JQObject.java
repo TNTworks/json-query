@@ -33,11 +33,20 @@ public final class JQObject extends JQParsedEntity<JQObject> {
     
     @Override
     public String print() {
-        return "{" +
-               String.join(",", properties
-                   .stream()
-                   .map(IJQPrintable::print)
-                   .toArray(String[]::new)) +
-               "}";
+        return
+            "{" +
+            String.join(",", properties
+                .stream()
+                .map(IJQPrintable::print)
+                .toArray(String[]::new)) +
+            "}";
+    }
+    
+    @Override
+    public String printXml() {
+        return String.join("", properties
+            .stream()
+            .map(IJQPrintable::printXml)
+            .toArray(String[]::new));
     }
 }

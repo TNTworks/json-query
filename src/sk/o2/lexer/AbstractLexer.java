@@ -7,14 +7,16 @@ public abstract class AbstractLexer<TTokenType> {
     private String input;
     
     private final TTokenType badToken;
+    private final TTokenType eofToken;
     private final TTokenType whitespaceToken;
     
     private final ArrayList<LexerToken<TTokenType>> tokens;
     private final ArrayList<LexerTokenDefinition<TTokenType>> tokenTypes;
     
-    public AbstractLexer(String input, TTokenType badToken, TTokenType whitespaceToken) {
+    public AbstractLexer(String input, TTokenType badToken, TTokenType eofToken, TTokenType whitespaceToken) {
         this.input = input;
         this.badToken = badToken;
+        this.eofToken = eofToken;
         this.whitespaceToken = whitespaceToken;
         
         tokens = new ArrayList<>();
@@ -45,7 +47,7 @@ public abstract class AbstractLexer<TTokenType> {
             .filter(token -> token.getType() == badToken)
             .forEach(token -> System.out.print("[" + token.getType() + " " + token.getValue() + "] "));
         
-        tokens.add(new LexerToken<>(badToken, ""));
+        tokens.add(new LexerToken<>(eofToken, ""));
         
         return tokens;
     }

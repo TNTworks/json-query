@@ -7,9 +7,12 @@ import sk.o2.json.lexer.JsonTokenEnum;
 
 public final class JQLiteral extends JQParsedEntity<JQLiteral> {
     private String value;
+    private boolean isNull;
     
     @Override
     public JsonParserContext<JQLiteral> parse(JsonParser parser) {
+        isNull = false;
+        
         if (parser.isNext(JsonTokenEnum.TRUE)) {
             value = parser.expect(JsonTokenEnum.TRUE).getValue();
         } else if (parser.isNext(JsonTokenEnum.FALSE)) {
@@ -20,6 +23,7 @@ public final class JQLiteral extends JQParsedEntity<JQLiteral> {
             value = parser.expect(JsonTokenEnum.NUMBER).getValue();
         } else if (parser.isNext(JsonTokenEnum.NULL)) {
             value = parser.expect(JsonTokenEnum.NULL).getValue();
+            isNull = true;
         }
         
         return new JsonParserContext<>(parser, this);
@@ -28,5 +32,25 @@ public final class JQLiteral extends JQParsedEntity<JQLiteral> {
     @Override
     public String print() {
         return value;
+    }
+    
+    @Override
+    public String printXml() {
+        return (
+            isNull
+                ? ""
+                : (value.startsWith("\"") && value.endsWith("\""))
+                    ? value.substring(1, value.length() - 1)
+                    : value
+        );
+        
+    }
+    
+    public boolean isNull() {
+        return isNull;
+    }
+    
+    public boolean isEmpty() {
+        return value == null || value.isEmpty();
     }
 }

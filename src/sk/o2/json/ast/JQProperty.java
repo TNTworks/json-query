@@ -17,7 +17,7 @@ public final class JQProperty extends JQParsedEntity<JQProperty> {
         parser.expect(JsonTokenEnum.COLON);
         
         if (parser.isNext(JsonTokenEnum.LEFT_SQUARE)) {
-            JsonParserContext<JQArray> pc = new JQArray().parse(parser);
+            JsonParserContext<JQArray> pc = new JQArray().setArrayName(name).parse(parser);
             parser = pc.getParser();
             array = pc.getParsedEntity();
         } else if (parser.isNext(JsonTokenEnum.LEFT_CURLY)) {
@@ -43,6 +43,35 @@ public final class JQProperty extends JQParsedEntity<JQProperty> {
     
     @Override
     public String print() {
-        return name + ":" + (array != null ? array.print() : (object != null ? object.print() : literal.print()));
+        return name + ":" + (
+            array != null
+                ? array.print()
+                : (
+                    object != null
+                        ? object.print()
+                        : literal.print()
+                )
+        );
+    }
+    
+    @Override
+    public String printXml() {
+        return (
+            array != null
+                ? array.printXml()
+                : (
+                    literal != null ?
+                        (
+                            literal.isNull() || literal.isEmpty() ?
+                                "<" + name.substring(1, name.length() - 1) + "/>" :
+                                "<" + name.substring(1, name.length() - 1) + ">" +
+                                literal.printXml() +
+                                "</" + name.substring(1, name.length() - 1) + ">"
+                        ) :
+                        "<" + name.substring(1, name.length() - 1) + ">" +
+                        object.printXml() +
+                        "</" + name.substring(1, name.length() - 1) + ">"
+                )
+        );
     }
 }
