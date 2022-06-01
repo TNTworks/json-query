@@ -17,35 +17,41 @@ This repository contains 3 abstract classes that covers the respective features:
 
 Statement `new XmlSerializer(new JsonParser(new JsonLexer(data).lex()).parse()).serialize()` will lex, parse and serialize a JSON string into an XML string.
 
-*Input JSON:*
+**Input JSON:**
 
 ```json
 {
   "subscriber": {
-    "subscriberType": "prepaid",
-    "subscriberId": 10000000,
+    "type": "prepaid",
+    "id": 10000000,
     "msisdn": 949000000,
     "tariff": {
-      "tariffId": "O2:SK:PREPAID:TARIFF:1",
-      "tariffName": "Basic Tariff",
-      "tariffType": 10
+      "id": "O2:SK:PREPAID:TARIFF:1",
+      "name": "Basic Tariff",
+      "type": 10,
+      "flags": [
+        10, 20, 300, 500
+      ]
     }
   }
 }
-
 ```
 
-*Output XML:*
+**Output XML:**
 
 ```xml
 <subscriber>
-	<subscriberType>prepaid</subscriberType>
-	<subscriberId>10000000</subscriberId>
+	<type>prepaid</type>
+	<id>10000000</id>
 	<msisdn>949000000</msisdn>
 	<tariff>
-		<tariffId>O2:SK:PREPAID:TARIFF:1</tariffId>
-		<tariffName>Basic Tariff</tariffName>
-		<tariffType>10</tariffType>
+		<id>O2:SK:PREPAID:TARIFF:1</id>
+		<name>Basic Tariff</name>
+		<type>10</type>
+		<flags>10</flags>
+		<flags>20</flags>
+		<flags>300</flags>
+		<flags>500</flags>
 	</tariff>
 </subscriber>
 ```
