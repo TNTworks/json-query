@@ -17,30 +17,37 @@ This repository contains 3 abstract classes that covers the respective features:
 
 Statement `new XmlSerializer(new JsonParser(new JsonLexer(data).lex()).parse()).serialize()` will lex, parse and serialize a JSON string into an XML string.
 
-```java
-package sk.o2.jsonquery;
+*Input JSON:*
 
-import sk.o2.json.lexer.JsonLexer;
-import sk.o2.json.parser.JsonParser;
-import sk.o2.json.serializer.XmlSerializer;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-@SuppressWarnings("SameParameterValue")
-public final class Main {
-    public static void main(String[] args) throws IOException {
-        String data = readResource("runtime/input.json");
-        
-        System.out.println(new XmlSerializer(new JsonParser(new JsonLexer(data).lex()).parse()).serialize());
+```json
+{
+  "subscriber": {
+    "subscriberType": "prepaid",
+    "subscriberId": 10000000,
+    "msisdn": 949000000,
+    "tariff": {
+      "tariffId": "O2:SK:PREPAID:TARIFF:1",
+      "tariffName": "Basic Tariff",
+      "tariffType": 10
     }
-    
-    private static String readResource(String resourcePath) throws IOException {
-        return new String(Files.readAllBytes(Paths.get(resourcePath)), StandardCharsets.UTF_8);
-    }
+  }
 }
+
+```
+
+*Output XML:*
+
+```xml
+<subscriber>
+	<subscriberType>prepaid</subscriberType>
+	<subscriberId>10000000</subscriberId>
+	<msisdn>949000000</msisdn>
+	<tariff>
+		<tariffId>O2:SK:PREPAID:TARIFF:1</tariffId>
+		<tariffName>Basic Tariff</tariffName>
+		<tariffType>10</tariffType>
+	</tariff>
+</subscriber>
 ```
 
 # AbstractLexer<TTokenType>
