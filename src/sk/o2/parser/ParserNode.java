@@ -3,11 +3,10 @@ package sk.o2.parser;
 import java.util.ArrayList;
 
 public final class ParserNode<TNodeType> {
-    private String value;
-    private String name;
-    
     private final TNodeType type;
     private final ArrayList<ParserNode<TNodeType>> children;
+    private String value;
+    private String name;
     
     public ParserNode(TNodeType type) {
         this.type = type;

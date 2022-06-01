@@ -10,11 +10,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public final class SerializerContext<TNodeType> {
-    private String serializedString;
-    
     private final ParserNode<TNodeType> node;
     private final HashMap<TNodeType, Function<SerializerContext<TNodeType>,
         SerializerContext<TNodeType>>> serializingLogic;
+    private String serializedString;
     
     public SerializerContext(ParserNode<TNodeType> node) {
         this.node = node;
@@ -53,9 +52,9 @@ public final class SerializerContext<TNodeType> {
         if (!optional.isPresent()) {
             throw new RuntimeException();
         }
-    
+        
         Optional<SerializerContext<TNodeType>> optional2 = optional.map(element -> withNode(element).serialize());
-    
+        
         if (!optional2.isPresent()) {
             throw new RuntimeException();
         }
@@ -87,12 +86,12 @@ public final class SerializerContext<TNodeType> {
         return serializedString;
     }
     
-    public SerializerContext<TNodeType> withSerializedString(String serializedString) {
-        return new SerializerContext<>(node, serializingLogic).setSerializedString(serializedString);
-    }
-    
     private SerializerContext<TNodeType> setSerializedString(String serializedString) {
         this.serializedString = serializedString;
         return this;
+    }
+    
+    public SerializerContext<TNodeType> withSerializedString(String serializedString) {
+        return new SerializerContext<>(node, serializingLogic).setSerializedString(serializedString);
     }
 }

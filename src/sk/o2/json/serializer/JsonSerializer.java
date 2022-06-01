@@ -18,23 +18,23 @@ public final class JsonSerializer extends AbstractSerializer<JsonNodeEnum> {
         addSerializingLogic(JsonNodeEnum.TRUE, (context) ->
             context.withSerializedString(context.getNode().getValue())
         );
-    
+        
         addSerializingLogic(JsonNodeEnum.FALSE, (context) ->
             context.withSerializedString(context.getNode().getValue())
         );
-    
+        
         addSerializingLogic(JsonNodeEnum.STRING, (context) ->
             context.withSerializedString(context.getNode().getValue())
         );
-    
+        
         addSerializingLogic(JsonNodeEnum.NULL, (context) ->
             context.withSerializedString(context.getNode().getValue())
         );
-    
+        
         addSerializingLogic(JsonNodeEnum.NUMBER, (context) ->
             context.withSerializedString(context.getNode().getValue())
         );
-    
+        
         addSerializingLogic(JsonNodeEnum.ARRAY, (context) ->
             context.withSerializedString("[" + String.join(",", context.serializeChildren()) + "]")
         );

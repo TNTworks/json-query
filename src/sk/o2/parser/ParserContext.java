@@ -7,11 +7,10 @@ import java.util.HashMap;
 import java.util.function.Function;
 
 public final class ParserContext<TTokenType, TNodeType> {
-    private ParserNode<TNodeType> parsedNode;
-    
     private final ArrayList<LexerToken<TTokenType>> tokens;
     private final HashMap<TNodeType, Function<ParserContext<TTokenType, TNodeType>,
         ParserContext<TTokenType, TNodeType>>> parseLogic;
+    private ParserNode<TNodeType> parsedNode;
     
     public ParserContext(ArrayList<LexerToken<TTokenType>> tokens) {
         this.tokens = tokens;

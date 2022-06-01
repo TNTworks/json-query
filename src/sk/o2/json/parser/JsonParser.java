@@ -86,10 +86,10 @@ public final class JsonParser extends AbstractParser<JsonTokenEnum, JsonNodeEnum
             
             return context.withNode(node);
         });
-    
+        
         addParsingLogic(JsonNodeEnum.TRUE, (context) -> context.withNode(new ParserNode<>(JsonNodeEnum.TRUE)
             .withValue(context.expect(JsonTokenEnum.TRUE).getValue())));
-    
+        
         addParsingLogic(JsonNodeEnum.FALSE, (context) -> context.withNode(new ParserNode<>(JsonNodeEnum.FALSE)
             .withValue(context.expect(JsonTokenEnum.FALSE).getValue())));
         

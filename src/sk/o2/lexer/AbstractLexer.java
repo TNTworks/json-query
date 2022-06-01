@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public abstract class AbstractLexer<TTokenType> {
-    private String input;
-    
     private final TTokenType badToken;
     private final TTokenType eofToken;
     private final TTokenType whitespaceToken;
-    
     private final ArrayList<LexerToken<TTokenType>> tokens;
     private final ArrayList<LexerTokenDefinition<TTokenType>> tokenTypes;
+    private String input;
     
     public AbstractLexer(String input, TTokenType badToken, TTokenType eofToken, TTokenType whitespaceToken) {
         this.input = input;

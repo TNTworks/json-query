@@ -5,7 +5,6 @@ import sk.o2.parser.ParserNode;
 import sk.o2.serializer.AbstractSerializer;
 import sk.o2.serializer.SerializerContext;
 
-
 public final class XmlSerializer extends AbstractSerializer<JsonNodeEnum> {
     public XmlSerializer(ParserNode<JsonNodeEnum> rootNode) {
         super(rootNode);
