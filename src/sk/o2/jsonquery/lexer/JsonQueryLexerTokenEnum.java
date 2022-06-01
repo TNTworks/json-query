@@ -1,17 +1,18 @@
 package sk.o2.jsonquery.lexer;
 
 public enum JsonQueryLexerTokenEnum {
-    LEFT_CURLY,
-    RIGHT_CURLY,
+    DOUBLE_SLASH,
+    SINGLE_SLASH,
     LEFT_SQUARE,
     RIGHT_SQUARE,
-    COMMA,
-    COLON,
     STRING,
     NUMBER,
+    IDENTIFIER,
     TRUE,
     FALSE,
-    NULL,
+    DOUBLE_DOT,
+    DOT,
+    EQUALS,
     WHITESPACE,
     BAD_TOKEN,
     EOF

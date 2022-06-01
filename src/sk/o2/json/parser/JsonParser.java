@@ -18,22 +18,22 @@ public final class JsonParser {
         if (isNext(JsonTokenEnum.LEFT_CURLY)) {
             JsonParserContext<JQObject> pc = new JQObject().parse(this);
             
-            if (this.peek().getType() != JsonTokenEnum.EOF) {
-                throw new RuntimeException("Unexpected token " + this.peek().getType());
+            if (peek().getType() != JsonTokenEnum.EOF) {
+                throw new RuntimeException("Unexpected token " + peek().getType());
             }
             
             return pc.getParsedEntity();
         } else if (isNext(JsonTokenEnum.LEFT_SQUARE)) {
             JsonParserContext<JQArray> pc = new JQArray().setArrayName("anonymousRoot").parse(this);
     
-            if (this.peek().getType() != JsonTokenEnum.EOF) {
-                throw new RuntimeException("Unexpected token " + this.peek().getType());
+            if (peek().getType() != JsonTokenEnum.EOF) {
+                throw new RuntimeException("Unexpected token " + peek().getType());
             }
             
             return pc.getParsedEntity();
         }
     
-        throw new RuntimeException("Expected [array or object] but found " + this.peek().getType());
+        throw new RuntimeException("Expected [array or object] but found " + peek().getType());
     }
     
     public boolean isNext(JsonTokenEnum type) {
