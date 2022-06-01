@@ -30,17 +30,8 @@ public final class ParserNode<TNodeType> {
         this.name = name;
     }
     
-    public ParserNode<TNodeType> withChild(ParserNode<TNodeType> child) {
+    public void withChild(ParserNode<TNodeType> child) {
         children.add(child);
-        return this;
-    }
-    
-    public boolean hasChildren() {
-        return !children.isEmpty();
-    }
-    
-    public boolean isLeaf() {
-        return children.isEmpty();
     }
     
     public String getName() {

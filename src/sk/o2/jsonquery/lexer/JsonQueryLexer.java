@@ -1,6 +1,5 @@
 package sk.o2.jsonquery.lexer;
 
-import sk.o2.json.lexer.JsonTokenEnum;
 import sk.o2.lexer.AbstractLexer;
 
 public final class JsonQueryLexer extends AbstractLexer<JsonQueryLexerTokenEnum> {

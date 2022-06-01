@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Function;
 
-public class ParserContext<TTokenType, TNodeType> {
+public final class ParserContext<TTokenType, TNodeType> {
     private ParserNode<TNodeType> parsedNode;
     
     private final ArrayList<LexerToken<TTokenType>> tokens;
@@ -38,7 +38,13 @@ public class ParserContext<TTokenType, TNodeType> {
     }
     
     public boolean isNext(TTokenType type) {
-        return tokens.size() > 0 && peek().getType() == type;
+        ArrayList<TTokenType> arr = new ArrayList<>();
+        arr.add(type);
+        return isNext(arr);
+    }
+    
+    public boolean isNext(ArrayList<TTokenType> types) {
+        return tokens.size() > 0 && types.stream().anyMatch(t -> t == peek().getType());
     }
     
     public LexerToken<TTokenType> expect(TTokenType type) {
@@ -58,6 +64,10 @@ public class ParserContext<TTokenType, TNodeType> {
     }
     
     public ParserContext<TTokenType, TNodeType> parse(TNodeType node) {
+        if (!parseLogic.containsKey(node)) {
+            throw new RuntimeException("Parsing logic not registered for node: " + node);
+        }
+        
         return parseLogic.get(node).apply(this);
     }
     
