@@ -9,9 +9,9 @@ Java library that processes XPath-like query language for JSON.
 ## Features
 
 This repository contains 3 abstract classes that covers the respective features:
-- AbstractLexer<TTokenType>
-- AbstractParser<TTokenType, TNodeType>
-- AbstractSerializer<TNodeType>
+- `AbstractLexer<TTokenType>`
+- `AbstractParser<TTokenType, TNodeType>`
+- `AbstractSerializer<TNodeType>`
 
 # Basic Usage
 
