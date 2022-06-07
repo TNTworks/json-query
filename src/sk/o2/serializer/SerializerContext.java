@@ -1,6 +1,7 @@
 package sk.o2.serializer;
 
 import sk.o2.parser.ParserNode;
+import sk.o2.utilities.StringUtilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,9 +33,11 @@ public final class SerializerContext<TNodeType> {
     
     @Override
     public String toString() {
-        return "SerializerContext{" +
-               "node=" + node +
-               '}';
+        return StringUtilities.padSpaces(
+            "SerializerContext {" + "\n" +
+            "  node=" + node + "\n" +
+            '}'
+        );
     }
     
     public SerializerContext<TNodeType> withNode(ParserNode<TNodeType> node) {
@@ -62,7 +65,9 @@ public final class SerializerContext<TNodeType> {
             throw new RuntimeException();
         }
         
-        Optional<SerializerContext<TNodeType>> optional2 = optional.map(element -> withNode(element).serialize());
+        Optional<SerializerContext<TNodeType>>
+            optional2 =
+            optional.map(element -> withNode(element).serialize());
         
         if (!optional2.isPresent()) {
             throw new RuntimeException();
@@ -72,7 +77,9 @@ public final class SerializerContext<TNodeType> {
     }
     
     public String[] serializeChildren() {
-        return serializeChildrenToContext().stream().map(SerializerContext::getSerializedString).toArray(String[]::new);
+        return serializeChildrenToContext().stream()
+            .map(SerializerContext::getSerializedString)
+            .toArray(String[]::new);
     }
     
     public String serializeChild() {
@@ -81,7 +88,8 @@ public final class SerializerContext<TNodeType> {
     
     public SerializerContext<TNodeType> serialize() {
         if (!serializingLogic.containsKey(node.getType())) {
-            throw new RuntimeException("Serializing logic not registered for node: " + node.getType());
+            throw new RuntimeException("Serializing logic not registered for node: " +
+                                       node.getType());
         }
         
         return serializingLogic.get(node.getType()).apply(this);

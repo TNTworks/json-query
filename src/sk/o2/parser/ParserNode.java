@@ -1,6 +1,9 @@
 package sk.o2.parser;
 
+import sk.o2.utilities.StringUtilities;
+
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public final class ParserNode<TNodeType> {
     private final TNodeType type;
@@ -27,12 +30,24 @@ public final class ParserNode<TNodeType> {
     
     @Override
     public String toString() {
-        return "ParserNode{" +
-               "type=" + type +
-               ", children=" + children +
-               ", value='" + value + '\'' +
-               ", name='" + name + '\'' +
-               '}';
+        return
+            "ParserNode {\n" +
+            StringUtilities.padSpaces(
+                "type=" + type + '\n' +
+                "children=" + toStringChildren() + '\n' +
+                "value='" + value + "'\n" +
+                "name='" + name + '\''
+            ) + '\n' +
+            '}';
+    }
+    
+    private String toStringChildren() {
+        return
+            "[\n" +
+            children.stream()
+                .map(child -> StringUtilities.padSpaces(child.toString()))
+                .collect(Collectors.joining(",\n")) +
+            "\n  ]";
     }
     
     public void withName(String name) {
