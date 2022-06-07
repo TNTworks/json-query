@@ -10,10 +10,15 @@ public final class XmlSerializer extends AbstractSerializer<JsonNodeEnum> {
         super(rootNode);
         
         addSerializingLogic(JsonNodeEnum.OBJECT, (context) ->
-            context.withSerializedString(String.join("", context.serializeChildren())));
+            {
+                System.out.println("Serializing object: " + context.toString() + "\n");
+                return context.withSerializedString(String.join("", context.serializeChildren()));
+            }
+        );
         
         addSerializingLogic(JsonNodeEnum.PROPERTY, (context) ->
             {
+                System.out.println("Serializing property: " + context.toString() + "\n");
                 SerializerContext<JsonNodeEnum> childContext = context.serializeChildToContext();
                 
                 String nodeName =
@@ -74,8 +79,9 @@ public final class XmlSerializer extends AbstractSerializer<JsonNodeEnum> {
             context.withSerializedString(context.getNode().getValue())
         );
         
-        addSerializingLogic(
-            JsonNodeEnum.ARRAY, (context) -> {
+        addSerializingLogic(JsonNodeEnum.ARRAY, (context) ->
+            {
+                System.out.println("Serializing array: " + context.toString() + "\n");
                 String nodeName =
                     context.getNode().getName() != null ? context.getNode()
                         .getName().substring(1, context.getNode().getName().length() - 1) : "";

@@ -25,6 +25,16 @@ public final class ParserNode<TNodeType> {
         return this;
     }
     
+    @Override
+    public String toString() {
+        return "ParserNode{" +
+               "type=" + type +
+               ", children=" + children +
+               ", value='" + value + '\'' +
+               ", name='" + name + '\'' +
+               '}';
+    }
+    
     public void withName(String name) {
         this.name = name;
     }

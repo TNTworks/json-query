@@ -11,12 +11,14 @@ import java.util.stream.Collectors;
 
 public final class SerializerContext<TNodeType> {
     private final ParserNode<TNodeType> node;
+    private final HashMap<String, Object> metadata;
     private final HashMap<TNodeType, Function<SerializerContext<TNodeType>,
         SerializerContext<TNodeType>>> serializingLogic;
     private String serializedString;
     
     public SerializerContext(ParserNode<TNodeType> node) {
         this.node = node;
+        this.metadata = new HashMap<>();
         this.serializingLogic = new HashMap<>();
     }
     
@@ -24,8 +26,15 @@ public final class SerializerContext<TNodeType> {
         ParserNode<TNodeType> node, HashMap<TNodeType,
         Function<SerializerContext<TNodeType>, SerializerContext<TNodeType>>> serializingLogic
     ) {
-        this.node = node;
-        this.serializingLogic = serializingLogic;
+        this(node);
+        this.serializingLogic.putAll(serializingLogic);
+    }
+    
+    @Override
+    public String toString() {
+        return "SerializerContext{" +
+               "node=" + node +
+               '}';
     }
     
     public SerializerContext<TNodeType> withNode(ParserNode<TNodeType> node) {
@@ -93,5 +102,19 @@ public final class SerializerContext<TNodeType> {
     
     public SerializerContext<TNodeType> withSerializedString(String serializedString) {
         return new SerializerContext<>(node, serializingLogic).setSerializedString(serializedString);
+    }
+    
+    public SerializerContext<TNodeType> withMetadata(HashMap<String, Object> data) {
+        metadata.putAll(data);
+        return this;
+    }
+    
+    public SerializerContext<TNodeType> withMetadata(String key, Object value) {
+        metadata.put(key, value);
+        return this;
+    }
+    
+    public Object getMetadata(String key) {
+        return metadata.getOrDefault(key, new Object());
     }
 }
